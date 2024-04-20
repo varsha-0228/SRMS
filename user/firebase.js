@@ -146,7 +146,7 @@ else
             grade_field.appendChild(opt6);
 
             var opt7 = document.createElement('option');
-            opt7.value = 4;
+            opt7.value = 0;
             opt7.text = 'F';
             grade_field.appendChild(opt7);
 
@@ -198,11 +198,12 @@ else
                         var sem_GPA=[];
                         var sem_names=[];
                         var sem_percent=[];
+                        var status=[];
 
                         //checking whether the user have any records or not
                         if (semesters.length !=0)//if the semesters count not equal to zero
                         {
-                            var points_to_grade={10:"A+",9:"A",8:"B",7:"C",6:"D",5:"E",4:"F"};
+                            var points_to_grade={10:"A+",9:"A",8:"B",7:"C",6:"D",5:"E",0:"F"};
                             //creating loop to iterate each semester of the
                             for(var i=0;i<semesters.length;i++)
                             {
@@ -227,7 +228,7 @@ else
 
                                 //adding number of subjects each time to the semester_subject_count -- counting the total number of subjects in all semester
                                 semester_subject_count=Number(semester_subject_count)+Number(subject_count)-1;
-                                SGP_and_creditCount=marks_field(subject_count,Info,indvd_sem,main_div,"subjects_bargraph_"+i,semister_title,points_to_grade);//function that reutrns all the individual subject grades, credits and subject name
+                                SGP_and_creditCount=marks_field(subject_count,Info,indvd_sem,main_div,"subjects_bargraph_"+i,semister_title,points_to_grade,status);//function that reutrns all the individual subject grades, credits and subject name
                                 //adding the total credits in each semester
                                 credits_count=Number(credits_count)+Number(SGP_and_creditCount.credits_count);
                                 //calculating Total GPA
@@ -239,17 +240,18 @@ else
                                 marks_section.appendChild(main_div);
                             }
                             
+                            console.log(status);
                             //checking the status - PASS/FAIL
-                            var status=document.getElementById("status");
-                            if(SGP_and_creditCount.status==0)
+                            var status_fp=document.getElementById("status");
+                            if(status.includes("0"))
                             {
-                                status.innerText="Pass";
-                                status.classList.add("text-green-400");
+                                status_fp.innerText="Fail";
+                                status_fp.classList.add("text-red-400");
                             }
-                            else if(SGP_and_creditCount.status==1)
+                            else
                             {
-                                status.innerText="Fail";
-                                status.classList.add("text-red-400");
+                                status_fp.innerText="Pass";
+                                status_fp.classList.add("text-green-400");
                             }
                             const total_points=document.createElement('p');//creating paragraph for total GPS outside loop to overcome multiple iterations
                             total_points.innerText="Total Grade Points (CGP) - "+((Number(CGP)/Number(semesters.length)).toFixed(2));
@@ -353,7 +355,7 @@ else
         }
     })
     //creating a function that analyse all the subject names, credit points, grades, bargraphs individually...
-    function marks_field(subject_count,Info,indvd_sem,main_div,subject_bargraph,semister_title,points_to_grade)
+    function marks_field(subject_count,Info,indvd_sem,main_div,subject_bargraph,semister_title,points_to_grade,status)
     {
         var TCGP=0;
         var credit_count=0;
@@ -362,8 +364,6 @@ else
         //creating arrays for plotting graph
         var subjects_array=[];
         var grades_array=[];
-
-        var status=0;
         
         // creating a table to store marks in an organised way
         const table=document.createElement("table");
@@ -438,12 +438,12 @@ else
             if (Info[indvd_sem]["subject"+j].grade<5)//skipping the credit value if he/she fails a subject -- F=5
             {
                 credit_count=Number(credit_count)+0;
-                status=1;
             }
             else//adding the credit value if he/she pass
             {
                 credit_count=Number(credit_count)+Number(Info[indvd_sem]["subject"+j].credits);
             }
+            status.push(Info[indvd_sem]["subject"+j].grade);
         }
         const data = [{
         x:subjects_array,
