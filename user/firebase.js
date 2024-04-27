@@ -228,7 +228,7 @@ else
 
                                 //adding number of subjects each time to the semester_subject_count -- counting the total number of subjects in all semester
                                 semester_subject_count=Number(semester_subject_count)+Number(subject_count)-1;
-                                SGP_and_creditCount=marks_field(subject_count,Info,indvd_sem,main_div,"subjects_bargraph_"+i,semister_title,points_to_grade,status);//function that reutrns all the individual subject grades, credits and subject name
+                                SGP_and_creditCount=marks_field(subject_count,Info,indvd_sem,main_div,"subjects_bargraph_"+i,semester_title,points_to_grade,status);//function that reutrns all the individual subject grades, credits and subject name
                                 //adding the total credits in each semester
                                 credits_count=Number(credits_count)+Number(SGP_and_creditCount.credits_count);
                                 //calculating Total GPA
