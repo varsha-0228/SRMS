@@ -35,8 +35,8 @@ else
         var numb_subj=getvalue("no_subj");
         var sem=getvalue("semister");
         var marks=firebase.database().ref("Marks").child(name+"/"+sem);
-        //passing semister value into database
-        marks.set({semister:sem});
+        //passing semester value into database
+        marks.set({semester:sem});
         for(var i=1;i<Number(numb_subj)+1;i++)
         {
             //changing id name through loop, subject1, subject2, subject3.....
