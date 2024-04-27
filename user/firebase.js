@@ -35,8 +35,8 @@ else
         var numb_subj=getvalue("no_subj");
         var sem=getvalue("semister");
         var marks=firebase.database().ref("Marks").child(name+"/"+sem);
-        //passing semester value into database
-        marks.set({semester:sem});
+        //passing semister value into database
+        marks.set({semister:sem});
         for(var i=1;i<Number(numb_subj)+1;i++)
         {
             //changing id name through loop, subject1, subject2, subject3.....
@@ -208,23 +208,23 @@ else
                             for(var i=0;i<semesters.length;i++)
                             {
                                 var indvd_sem=semesters[i];
-                                var subject_count=Object.keys(Info[indvd_sem]).length;//returns number of subjects in  each semester
+                                var subject_count=Object.keys(Info[indvd_sem]).length;//returns number of subjects in  each semister
 
                                 const main_div=document.createElement("div");//creating main div for each table that contains sem number, table, SGP.
                                 main_div.classList="flex items-center justify-center flex-col p-5";
 
                                 const sem_value=document.createElement('p');//creating paragraph tag to display semister value
-                                sem_value.innerText="Semester - "+Info[indvd_sem].semester;//keeping semester value as paragraph inner text
+                                sem_value.innerText="Semister - "+Info[indvd_sem].semister;//keeping semister value as paragraph inner text
                                 sem_value.classList="p-2 font-semibold text-lg"
-                                main_div.appendChild(sem_value);//adding semester valued paragraph inside main div
+                                main_div.appendChild(sem_value);//adding semister valued paragraph inside main div
 
                                 const subject_bargraph=document.createElement("div");//creating a div for individual bargraph
                                 subject_bargraph.id="subjects_bargraph_"+i;
                                 subject_bargraph.classList="mx-10 my-5";
-                                bargraph_maindiv.appendChild(subject_bargraph);//adding individual semester bargraph into bargraph div
+                                bargraph_maindiv.appendChild(subject_bargraph);//adding individual semister bargraph into bargraph div
 
-                                var semester_title="Sem "+Info[indvd_sem].semester;//creating semester title for the bargraph and passed into the marks_field() function
-                                sem_names.push(semester_title);
+                                var semister_title="Sem "+Info[indvd_sem].semister;//creating semester title for the bargraph and passed into the marks_field() function
+                                sem_names.push(semister_title);
 
                                 //adding number of subjects each time to the semester_subject_count -- counting the total number of subjects in all semester
                                 semester_subject_count=Number(semester_subject_count)+Number(subject_count)-1;
